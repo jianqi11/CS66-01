@@ -59,6 +59,9 @@ const ConfirmEmail = () => {
 
   const { email } = navigate.query as { email: string };
 
+  //get location params
+  // const location = useLocation();
+
   const {
     register,
     handleSubmit,

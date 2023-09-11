@@ -31,13 +31,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setDomLoaded(true);
     //if user is new then redirect to marketing page
-    setIsLoading(false);
-    // if (router.pathname == "/" && !isNewUser()) {
-    //   setIsLoading(true);
-    //   window.location.href = MARKETING_PAGE_URL;
-    // } else {
-    //   setIsLoading(false);
-    // }
+    if (router.pathname == "/" && !isNewUser()) {
+      setIsLoading(true);
+      window.location.href = MARKETING_PAGE_URL;
+    } else {
+      setIsLoading(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

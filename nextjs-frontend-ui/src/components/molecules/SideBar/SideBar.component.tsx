@@ -1,6 +1,5 @@
 import { Box, Divider } from "@mui/material";
 import {
-  AccountBalanceOutlined,
   HouseOutlined,
   ManageAccountsOutlined,
   PeopleOutlineRounded,
@@ -67,15 +66,15 @@ const SideBar = ({ title, disabled, disableCommunities }: IAuthPageWrapper) => {
       <Box
         bgcolor="white"
         width="100%"
-        height={adminRole ? "328px" : "290px"}
+        height={adminRole ? "290px" : "252px"}
         border={COLORS.border}
         marginTop={4}
         sx={
           disabled
             ? {
-              opacity: 0.5,
-              pointerEvents: "none",
-            }
+                opacity: 0.5,
+                pointerEvents: "none",
+              }
             : {}
         }
         borderRadius="13px"
@@ -113,7 +112,7 @@ const SideBar = ({ title, disabled, disableCommunities }: IAuthPageWrapper) => {
                     sx={{
                       color:
                         activeCommunity === "ALL" &&
-                          !isChallengeOrProposalSelected
+                        !isChallengeOrProposalSelected
                           ? "black"
                           : COLORS.greyIcon,
                     }}
@@ -140,7 +139,7 @@ const SideBar = ({ title, disabled, disableCommunities }: IAuthPageWrapper) => {
                     sx={{
                       color:
                         activeCommunity === "FEDERAL" &&
-                          !isChallengeOrProposalSelected
+                        !isChallengeOrProposalSelected
                           ? "black"
                           : COLORS.greyIcon,
                     }}
@@ -168,7 +167,7 @@ const SideBar = ({ title, disabled, disableCommunities }: IAuthPageWrapper) => {
                     sx={{
                       color:
                         activeCommunity === "STATE" &&
-                          !isChallengeOrProposalSelected
+                        !isChallengeOrProposalSelected
                           ? "black"
                           : COLORS.greyIcon,
                     }}
@@ -196,7 +195,7 @@ const SideBar = ({ title, disabled, disableCommunities }: IAuthPageWrapper) => {
                     sx={{
                       color:
                         activeCommunity === "LOCAL" &&
-                          !isChallengeOrProposalSelected
+                        !isChallengeOrProposalSelected
                           ? "black"
                           : COLORS.greyIcon,
                     }}
@@ -210,17 +209,6 @@ const SideBar = ({ title, disabled, disableCommunities }: IAuthPageWrapper) => {
             </Link>
           </SideBarWrapper>
         </Stack>
-        <Divider sx={{ color: COLORS.greyIcon }} />
-        <Link href={"/"} key="7" style={{ textDecoration: "none" }}>
-          <SideBarItem
-            key="7"
-            keyId="7"
-            icon={<AccountBalanceOutlined sx={{ color: COLORS.greyIcon }} />}
-            text="National Political Discussion"
-            onClick={() => handleClick("NPD")}
-            selectedItem={activeCommunity === "NPD"}
-          />
-        </Link>
         {adminRole ? (
           <Link href={"/admin"} key="7" style={{ textDecoration: "none" }}>
             <Divider sx={{ color: COLORS.greyIcon }} />

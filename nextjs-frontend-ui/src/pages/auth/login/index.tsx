@@ -31,7 +31,6 @@ import { signInValidations } from "./Logic/signUpValidations";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
-import reCaptcha from "src/pages/auth/reCaptcha";
 
 const Login = ({ redirectPath }: { redirectPath?: string }) => {
   //State to Manage password visibility
@@ -72,12 +71,11 @@ const Login = ({ redirectPath }: { redirectPath?: string }) => {
   const onSignInSuccess = (results: CognitoUserSession) => {
     setLoading(false);
     setUserSession(results);
-
-    navigate.push("/auth/reCaptcha", {
-      query: {
-        redirectPath: redirectPath,
-      }
-    });
+    if (redirectPath) {
+      navigate.push(redirectPath);
+    } else {
+      navigate.push("/");
+    }
   };
 
   // OnSubmit the form

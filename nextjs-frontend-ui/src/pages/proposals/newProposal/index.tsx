@@ -418,9 +418,6 @@ const NewProposal = () => {
               <MenuItem key={4} value={"LOCAL"}>
                 Local Electorate
               </MenuItem>
-              <MenuItem key={5} value={"NPD"}>
-              National Political Discussion
-              </MenuItem>              
             </TextField>
           </NewProposalInputWrapper>
 

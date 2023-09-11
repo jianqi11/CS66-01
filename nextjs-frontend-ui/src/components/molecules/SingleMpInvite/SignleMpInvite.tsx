@@ -191,9 +191,6 @@ const SingleMpInvite = () => {
               <MenuItem key={999} value={"STATE"}>
                 STATE
               </MenuItem>
-              <MenuItem key={999} value={"NPD"}>
-                National Political Discussion
-              </MenuItem>
             </TextField>
           </FormInputWrapper>
           <FormInputWrapper marginTop={2}>

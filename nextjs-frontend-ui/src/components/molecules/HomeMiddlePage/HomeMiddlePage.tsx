@@ -78,13 +78,14 @@ function HomeMiddlePage() {
     fetchPosts,
     {
       getNextPageParam: (lastPage) => {
-        if (lastPage == null || lastPage.lastEvaluatedKey == null) {
+        if (lastPage.lastEvaluatedKey) {
+          return {
+            lastEvaluatedKey: lastPage.lastEvaluatedKey,
+            lastEvaluatedType: lastPage.lastEvaluatedType,
+          };
+        } else {
           return null;
         }
-        return {
-          lastEvaluatedKey: lastPage.lastEvaluatedKey,
-          lastEvaluatedType: lastPage.lastEvaluatedType,
-        };
       },
       select: (data) => {
         // Modify the data before returning it
@@ -104,9 +105,6 @@ function HomeMiddlePage() {
 
     // Iterate over the pages and posts, and store the posts in a map with postId as the key
     for (const page of pages) {
-      if (page == null || page.posts == null) {
-        continue;
-      }
       for (const post of page.posts) {
         postMap.set(post.postId, post);
       }

@@ -1,3 +1,5 @@
+如果跑不了就删了node_modules 然后 npm install --force
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

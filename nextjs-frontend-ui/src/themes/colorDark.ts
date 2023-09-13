@@ -1,0 +1,28 @@
+const COLORSDARK = {
+    primary: '#191919',
+    accentColor: '#EA3CD5',
+    secondary: '#F2F2F2',
+    SearchIconClolor: '#c6c4c4',
+    searchBarBackground: '#5a5a5a',
+    greyIcon: '#999999',
+    themeBaseTitleTextColor: '#FFF',
+    themeBaseTextColor: '#FFF',
+    userRanking: '#B6C07F',
+    reputationColor: '#75AC74',
+    followersColor: '#7A7AD0',
+    neutralGreyColor: '#F2F2F2',
+    dangerColor: '#FF6C6C',
+    greyBorder: '#EFEFEF',
+    bgColor: '#F3F2EF',
+    border: '1px solid #CCCCCC',
+    notificationDotColor: '#9999FF',
+    argumentCommentIconColor: '#EF6ADF',
+    primarySelectedShade: '#CDCDFF',
+    commentSectionColor: '#FCFCFC',
+    neutralTextBlack: '#231F20',
+    createPostBGColor: '#232323',
+    surveyBGColor: '#292929',
+    navBarClolor: '#232323',
+}
+
+export default COLORSDARK

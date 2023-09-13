@@ -1,8 +1,10 @@
 import { DescriptionOutlined } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext } from 'react'
+import { MyContext } from 'src/pages/_app'
 import INotificationItem from "./SurveyItem.interface";
 import COLORS from "@/themes/colors";
+import COLORSDARK from '@/themes/colorDark'
 
 const SurveyItem = ({
   onClick,
@@ -10,6 +12,9 @@ const SurveyItem = ({
   actionType,
   surveyItem,
 }: INotificationItem) => {
+
+  const { themeType } = useContext(MyContext)
+  
   return (
     <Stack
       direction="row"
@@ -28,6 +33,7 @@ const SurveyItem = ({
         variant="outlined"
         sx={{
           minWidth: 120,
+          color: themeType === 'light' ? COLORS.primary : COLORSDARK.themeBaseTextColor,
         }}
         onClick={onClick}
       >

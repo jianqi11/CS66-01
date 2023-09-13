@@ -17,6 +17,7 @@ import {
   Tooltip,
   Typography,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { CloseOutlined, Help, InsertEmoticon } from "@mui/icons-material";
 import {
@@ -26,7 +27,7 @@ import {
   FormWrapper,
   VerifiedBadge,
 } from "@/components/atoms";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { useMutation, useQueryClient } from "react-query";
 
 import COLORS from "@/themes/colors";
@@ -46,6 +47,10 @@ import { userDetailsValidation } from "./Logic/userDetailsValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Crypto from "crypto-js";
 import EmojiPicker from "emoji-picker-react";
+
+import { MyContext } from 'src/pages/_app';
+import { CommunityContext } from '@/context/CommunityContext';
+import COLORSDARK from '@/themes/colorDark';
 
 const useStyles = makeStyles({
   input: {
@@ -69,6 +74,10 @@ const useStyles = makeStyles({
 });
 
 const UserDetails = ({ details }: IUser) => {
+  const { setIsChallengeOrProposalSelected, isChallengeOrProposalSelected, setActiveCommunity } =
+  useContext(CommunityContext);
+  const { themeType, setThemeType } = useContext(MyContext);
+  const theme = useTheme();
   const [interesets, setIntersts] = useState<string[]>([]);
   const [open, setOpen] = React.useState(false);
   const [openDialog, setOpenDialog] = useState(false);
@@ -242,8 +251,9 @@ const UserDetails = ({ details }: IUser) => {
   const navigate = useRouter();
 
   return (
+    //这是profile右边整体
     <Box
-      bgcolor="white"
+      bgcolor={theme.sideBarBg}
       width="100%"
       height="100%"
       marginTop={4}
@@ -305,7 +315,7 @@ const UserDetails = ({ details }: IUser) => {
               disableElevation
               variant="contained"
               sx={{
-                background: "#6666FF",
+                background:   themeType === 'light' ? "#6666FF" : "#5D5DC9",
                 borderColor: "#999999",
                 fontSize: "16px",
                 width: "156px",
@@ -324,7 +334,11 @@ const UserDetails = ({ details }: IUser) => {
         </FormInputWrapper>
         <Box mt={2} />
         <FormInputWrapper>
-          <FormLabel>Name*</FormLabel>
+          <FormLabel 
+              sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Name*
+          </FormLabel>
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -332,6 +346,7 @@ const UserDetails = ({ details }: IUser) => {
             gap={3}
           >
             <TextField
+              sx={{bgcolor:'white'}}
               type="text"
               placeholder="First Name"
               fullWidth
@@ -341,6 +356,7 @@ const UserDetails = ({ details }: IUser) => {
               inputProps={{ style: { textTransform: "capitalize" } }}
             />
             <TextField
+              sx={{bgcolor:'white'}}
               type="text"
               placeholder="Last Name"
               fullWidth
@@ -352,9 +368,13 @@ const UserDetails = ({ details }: IUser) => {
           </Stack>
         </FormInputWrapper>
         <FormInputWrapper marginTop={2}>
-          <FormLabel>About me</FormLabel>
+          <FormLabel 
+          sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>About me</FormLabel>
           <TextField
             sx={{
+              bgcolor:'white',
               width: {
                 sm: "70%",
                 md: "100%",
@@ -416,7 +436,9 @@ const UserDetails = ({ details }: IUser) => {
             direction="row"
             sx={{ width: { sm: "100%", md: "100%", lg: "20%" } }}
           >
-            <FormLabel>Registered Address</FormLabel>
+            <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Registered Address</FormLabel>
           </Stack>
           <TextField
             sx={{ width: { sm: "100%", md: "100%", lg: "80%" } }}
@@ -443,13 +465,13 @@ const UserDetails = ({ details }: IUser) => {
         <FormInputWrapper marginTop={2}>
           <FormLabel />
           <TextField
-            sx={{ width: { sm: "100%", md: "100%", lg: "80%" } }}
+            sx={{bgcolor:'white', width: { sm: "100%", md: "100%", lg: "80%" } }}
             type="text"
             placeholder="City"
             {...register("city")}
             error={errors.city ? true : false}
             helperText={errors.city?.message}
-            inputProps={{ style: { textTransform: "capitalize" } }}
+            inputProps={{ style: { textTransform: "capitalize" } }}//注释掉这个就一直白底
           />
         </FormInputWrapper>
         <FormInputWrapper marginTop={2}>
@@ -457,7 +479,9 @@ const UserDetails = ({ details }: IUser) => {
             direction="row"
             sx={{ width: { sm: "100%", md: "100%", lg: "25%" } }}
           >
-            <FormLabel>Suburb / Postal code*</FormLabel>
+            <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Suburb / Postal code*</FormLabel>
           </Stack>
 
           <Stack
@@ -470,6 +494,7 @@ const UserDetails = ({ details }: IUser) => {
               type="text"
               placeholder="Suburb"
               fullWidth
+              //sub地区
               {...register("geoLocation.suburb")}
               error={errors.geoLocation?.suburb ? true : false}
               helperText={errors.geoLocation?.suburb?.message}
@@ -487,7 +512,9 @@ const UserDetails = ({ details }: IUser) => {
           </Stack>
         </FormInputWrapper>
         <FormInputWrapper marginTop={2}>
-          <FormLabel>Phone</FormLabel>
+          <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Phone</FormLabel>
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -496,7 +523,8 @@ const UserDetails = ({ details }: IUser) => {
           >
             <TextField
               sx={{
-                width: { sm: "50%", md: "50%", lg: "50%" },
+                width: { sm: "50%", md: "50%", lg: "50%", },
+                bgcolor:'white',
               }}
               select
               defaultValue="def"
@@ -526,10 +554,12 @@ const UserDetails = ({ details }: IUser) => {
           </Stack>
         </FormInputWrapper>
         <FormInputWrapper marginTop={2}>
-          <FormLabel>Gender</FormLabel>
+          <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Gender</FormLabel>
           <TextField
             select
-            sx={{ width: { sm: "100%", md: "100%", lg: "80%" } }}
+            sx={{bgcolor:'white', width: { sm: "100%", md: "100%", lg: "80%" } }}
             value={selectedGender}
             {...register("gender")}
             onChange={(e: any) => {
@@ -549,7 +579,9 @@ const UserDetails = ({ details }: IUser) => {
           </TextField>
         </FormInputWrapper>
         <FormInputWrapper marginTop={2}>
-          <FormLabel>Date of birth</FormLabel>
+          <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Date of birth</FormLabel>
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -565,7 +597,9 @@ const UserDetails = ({ details }: IUser) => {
           </Stack>
         </FormInputWrapper>
         <FormInputWrapper marginTop={2}>
-          <FormLabel>Interests</FormLabel>
+          <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Interests</FormLabel>
           <Autocomplete
             multiple
             limitTags={3}
@@ -581,7 +615,7 @@ const UserDetails = ({ details }: IUser) => {
               <TextField {...params} placeholder="Tags" spellCheck="true" />
             )}
             spellCheck={true}
-            sx={{ width: { sm: "100%", md: "100%", lg: "80%" } }}
+            sx={{ bgcolor:'white', width: { sm: "100%", md: "100%", lg: "80%" } }}
             value={interesets}
             freeSolo={true}
             onChange={(e, val) => {
@@ -593,7 +627,9 @@ const UserDetails = ({ details }: IUser) => {
         <Divider sx={{ marginY: 6 }} />
 
         <FormInputWrapper marginTop={2}>
-          <FormLabel>Email</FormLabel>
+          <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Email</FormLabel>
           <TextField
             sx={{
               width: { sm: "100%", md: "100%", lg: "80%" },
@@ -607,7 +643,9 @@ const UserDetails = ({ details }: IUser) => {
           />
         </FormInputWrapper>
         <FormInputWrapper marginTop={2}>
-          <FormLabel>Country</FormLabel>
+          <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Country</FormLabel>
           <TextField
             sx={{
               width: { sm: "100%", md: "100%", lg: "80%" },
@@ -626,7 +664,9 @@ const UserDetails = ({ details }: IUser) => {
             sx={{ width: { sm: "100%", md: "100%", lg: "25%" } }}
           >
             <Stack flexDirection="row" sx={{ marginRight: 1 }}>
-              <FormLabel>Federal Electorate</FormLabel>
+              <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Federal Electorate</FormLabel>
 
               <Tooltip
                 title={
@@ -659,7 +699,9 @@ const UserDetails = ({ details }: IUser) => {
             sx={{ width: { sm: "100%", md: "100%", lg: "25%" } }}
           >
             <Stack flexDirection="row" marginRight={1}>
-              <FormLabel>State Electorate</FormLabel>
+              <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>State Electorate</FormLabel>
 
               <Tooltip
                 title={
@@ -688,7 +730,9 @@ const UserDetails = ({ details }: IUser) => {
         </FormInputWrapper>
         <FormInputWrapper marginTop={2}>
           <Stack flexDirection="row" marginRight={1}>
-            <FormLabel>Local Electorate</FormLabel>
+            <FormLabel sx={{ color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor }}>Local Electorate</FormLabel>
             <Stack
               flexDirection="row"
               style={{
@@ -724,10 +768,12 @@ const UserDetails = ({ details }: IUser) => {
 
       <Stack maxWidth={640} marginX="auto" sx={{ padding: mobileView ? 0 : 3 }}>
         <Divider sx={{ marginY: 8 }} />
-        <Typography sx={{ fontSize: "14px" }} variant="h6">
+        <Typography sx={{ fontSize: "14px" ,color: themeType === 'light'
+                                ? COLORS.themeBaseTextColor
+                                : COLORSDARK.themeBaseTextColor}} variant="h6">
           Verify Your Identity
         </Typography>
-        <Typography sx={{ fontSize: "14px" }} color="grey">
+        <Typography sx={{ fontSize: "14px"  }} color="grey">
           We’re required to verify your identity for access full features of the
           App.
         </Typography>

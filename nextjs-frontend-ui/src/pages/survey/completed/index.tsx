@@ -46,7 +46,10 @@ const CompletedSurveys = () => {
           // maxWidth="790px"
         >
           <Stack>
-            <Typography variant="h6">Completed Surveys</Typography>
+            <Typography 
+            variant="h6"
+            
+            >Completed Surveys</Typography>
             <Stack marginTop={2}>
               {!data ||
                 (data?.length == 0 && (

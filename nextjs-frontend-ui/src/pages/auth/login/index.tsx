@@ -217,39 +217,6 @@ const Login = ({ redirectPath }: { redirectPath?: string }) => {
             Sign Up
           </Link>
         </Stack>
-        
-        <button>
-          <div>
-            <img 
-              src="/appleid_button@2x.png"
-              alt="Sign in with Apple"
-              width={140}
-              height={30}
-            />
-          </div>
-        </button>
-        
-        <button>
-          <div>
-            <img 
-              src="/btn_google_signin_light_normal_web@2x.png"
-              alt="Sign in with Google"
-              width={140}
-              height={30}
-            />
-          </div>
-        </button>
-        
-        <button>
-          <div>
-            <img 
-              src="/sign in with facebook.png"
-              alt="Sign in with Facebook"
-              width={140}
-              height={30}
-            />
-          </div>
-        </button>
       </FormWrapper>
     </AuthPageWrapper>
   );

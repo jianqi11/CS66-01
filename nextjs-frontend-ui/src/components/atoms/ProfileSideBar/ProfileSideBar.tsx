@@ -1,5 +1,6 @@
-import React from "react";
-import { Stack, Typography } from "@mui/material";
+//import React from "react";
+import { useState, useContext } from "react";
+import { Stack, Typography, Box, useTheme } from "@mui/material";
 import { VerifiedBadge } from "../VerifiedBadge/VerifiedBadge";
 import Image from "next/image";
 import IProfileSideBar from "./ProfileSideBar.interface";
@@ -9,8 +10,12 @@ import { useQuery } from "react-query";
 import IFollowerCount from "@/service/Followers/Follower.interface";
 import { VERIFICATION_STATUS } from "@/constants/verificationStatus";
 import COLORS from "@/themes/colors";
+import COLORSDARK from '@/themes/colorDark';
+import { MyContext } from 'src/pages/_app'
 
 const ProfileSideBar = ({ profile, userId }: IProfileSideBar) => {
+  const theme = useTheme();
+  const { themeType, setThemeType } = useContext(MyContext);
   const { data } = useQuery<IFollowerCount, Error>(
     `follow-count ${userId}`,
     async () => {
@@ -20,7 +25,13 @@ const ProfileSideBar = ({ profile, userId }: IProfileSideBar) => {
 
   let followCount = data?.followersCount;
   return (
+//这是profile左边的中间按钮
     <>
+    <Box 
+    bgcolor={theme.sideBarBg}
+    width="100%"
+    height="100%"
+    >
       {profile?.verificationStatus == VERIFICATION_STATUS.KYC_COMPLETE && (
         <VerifiedBadge />
       )}
@@ -28,7 +39,7 @@ const ProfileSideBar = ({ profile, userId }: IProfileSideBar) => {
         <Stack
           sx={{
             borderRadius: 3,
-            bgcolor: `${COLORS.followersColor}`,
+            bgcolor: themeType === 'light' ? `${COLORS.followersColor}` : `${COLORSDARK.followersColor}`,
             height: 44,
             width: 170,
             marginTop: 1,
@@ -45,7 +56,8 @@ const ProfileSideBar = ({ profile, userId }: IProfileSideBar) => {
           direction="row"
           sx={{
             borderRadius: 3,
-            bgcolor: `${COLORS.reputationColor}`,
+            bgcolor: themeType === 'light' ? `${COLORS.reputationColor}` : `${COLORSDARK.reputationColor}`,
+            //`${COLORS.reputationColor}`,
             height: 74,
 
             width: 170,
@@ -79,7 +91,8 @@ const ProfileSideBar = ({ profile, userId }: IProfileSideBar) => {
           direction="row"
           sx={{
             borderRadius: 3,
-            bgcolor: `${COLORS.userRanking}`,
+            bgcolor:  themeType === 'light' ? `${COLORS.userRanking}` : `${COLORSDARK.userRanking}`,
+            //`${COLORS.userRanking}`,
             height: 74,
 
             width: 170,
@@ -105,6 +118,7 @@ const ProfileSideBar = ({ profile, userId }: IProfileSideBar) => {
           </Stack>
         </Stack>
       </Stack>
+      </Box>
     </>
   );
 };

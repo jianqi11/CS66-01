@@ -5,9 +5,10 @@ import {
   CircularProgress,
   IconButton,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { MpTag, camera } from "@/assets/index";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "react-query";
 import COLORS from "@/themes/colors";
 import IS3FileType from "src/pages/proposals/newProposal/Logic/IFileType";
@@ -23,6 +24,8 @@ import { ProfileSideBar } from "@/components/atoms";
 import { encrypt } from "src/util/encrypt";
 import { useAuth } from "@/context/AuthContext";
 import { makeStyles } from "@mui/styles";
+import { MyContext } from 'src/pages/_app'
+import COLORSDARK from '@/themes/colorDark'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -32,6 +35,8 @@ const useStyles = makeStyles(() => ({
 
 //profile
 const UserProfile = ({ list, type }: IUser) => {
+  const theme = useTheme();
+  const { themeType } = useContext(MyContext);
   const [image, setImage] = useState<IS3FileType>();
   const [isUploading, setIsUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
@@ -72,8 +77,9 @@ const UserProfile = ({ list, type }: IUser) => {
   const loggedEmail = getUser()?.email;
 
   return (
+//这是profile左边整体    
     <Box
-      bgcolor="white"
+      bgcolor={theme.sideBarBg}
       width="100%"
       height="100%"
       marginTop={4}
@@ -162,6 +168,11 @@ const UserProfile = ({ list, type }: IUser) => {
               }}
               textTransform="capitalize"
               marginTop={1}
+              color={
+                themeType === 'light'
+                    ? COLORS.themeBaseTextColor
+                    : COLORSDARK.themeBaseTextColor
+            }
             >
               {`${capitalizeFirstLetter(
                 list?.firstName

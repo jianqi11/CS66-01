@@ -13,11 +13,18 @@ import { ISurveyResponseItem } from "@/types/ISurveyResponse";
 import { Alert, Box, Skeleton, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import withAuth from "src/hoc/withAuth";
+import { MyContext } from 'src/pages/_app'
+import COLORSDARK from '@/themes/colorDark'
+import {useTheme } from '@mui/material'
+import COLORS from '@/themes/colors'
+
 
 const PendingSurveys = () => {
+  const theme = useTheme()
+  const { themeType, setThemeType } = useContext(MyContext)
   const [selectedSurvey, setSelectedSurvey] = useState<ISurvey | null>(null);
 
   const [showPreview, setShowPreview] = useState(false);
@@ -88,7 +95,10 @@ const PendingSurveys = () => {
         <SurveyToolbar selected="pending" />
 
         <Box
-          bgcolor="white"
+          sx={{bgcolor:
+               themeType === 'light' ? COLORS.createPostBGColor : COLORSDARK.surveyBGColor,
+              }}
+          //bgcolor="white"
           width="100%"
           borderRadius={"16px"}
           border="0.911773px solid #E7E8F2"
@@ -98,8 +108,21 @@ const PendingSurveys = () => {
           // maxWidth="790px"
         >
           <Stack>
-            <Typography variant="h6">Pending Surveys</Typography>
-            <Stack marginTop={2}>
+            <Typography 
+            variant="h6"
+            color={
+                    themeType === 'light'
+                    ? COLORS.themeBaseTextColor
+                    : COLORSDARK.themeBaseTitleTextColor
+                  }
+            >Pending Surveys</Typography>
+            <Stack marginTop={2}
+                color={
+                    themeType === 'light'
+                    ? COLORS.themeBaseTextColor
+                    : COLORSDARK.themeBaseTextColor
+                  }
+            >
               {data &&
                 data?.map((e) => {
                   return (

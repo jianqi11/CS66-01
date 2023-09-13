@@ -4,7 +4,7 @@ import UserSession from "../aws/cognito/UserSession";
 //  baseURL: "https://vax5qqh64a.execute-api.ap-southeast-2.amazonaws.com/dev/",
 const API = axios.create({
   baseURL:
-    process.env.NEXT_PUBLIC_BASE_URL || "https://api-dev.itsourvoice.com/dev/",
+    process.env.NEXT_PUBLIC_BASE_URL || "https://api-stg.itsourvoice.com/stg",
   headers: {
     "Content-Type": "application/json",
   },

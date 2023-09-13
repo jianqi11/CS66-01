@@ -32,23 +32,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
 
     useEffect(() => {
-        setDomLoaded(true)
+        setDomLoaded(true);
         //if user is new then redirect to marketing page
-        if (router.pathname == '/' && !isNewUser()) {
-            setIsLoading(true)
-            window.location.href = MARKETING_PAGE_URL
-        } else {
-            setIsLoading(false)
-        }
+        setIsLoading(false);
+        // if (router.pathname == "/" && !isNewUser()) {
+        //   setIsLoading(true);
+        //   window.location.href = MARKETING_PAGE_URL;
+        // } else {
+        //   setIsLoading(false);
+        // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        if (typeof window !== 'undefined') {
-            const savedThemeType = localStorage.getItem('themeType')
-
-            if (savedThemeType) {
-                setThemeType(savedThemeType)
-            }
-        }
-    }, [])
+      }, []);
 
     //show loading screen while redirection take place
     if (isLoading) {

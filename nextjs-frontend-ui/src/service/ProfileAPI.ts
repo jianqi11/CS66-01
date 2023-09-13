@@ -5,7 +5,7 @@ import UserSession from "../aws/cognito/UserSession";
 const ProfileAPI = axios.create({
   baseURL:
     process.env.NEXT_PUBLIC_PROFILE_BASE_URL ||
-    "https://api-dev.itsourvoice.com/",
+    "https://api-stg.itsourvoice.com/stg",
   headers: {
     "Content-Type": "application/json",
   },

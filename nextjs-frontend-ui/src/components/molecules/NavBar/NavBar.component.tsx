@@ -47,6 +47,7 @@ import { capitalizeFirstLetter } from 'src/util/setCapital'
 import { CommunityContext } from '@/context/CommunityContext'
 import { MyContext } from 'src/pages/_app'
 import COLORSDARK from '@/themes/colorDark'
+//import { getActiveUsers } from 'src/components/molecules/NavBar/NavBar.component'
 
 const NavBar = () => {
     const { getUser } = useAuth()
@@ -63,6 +64,101 @@ const NavBar = () => {
     const { logout } = useContext(AuthContext)
     const loggedEmail = getUser()?.email
 
+    const [activeUserCount, setActiveUserCount] = useState(0);
+    React.useEffect(() => {
+        
+        const calculateActiveUserCount = () => {
+          
+          const users = [  
+            { name: 'User 1', birthDate: '1990-05-15' },
+            { name: 'User 2', birthDate: '1985-08-23' },
+        ]; 
+      
+          
+          const currentDate = new Date();
+      
+          
+          const activeUsers = users.filter(user => {
+            const birthDate = new Date(user.birthDate);
+            const age = currentDate.getFullYear() - birthDate.getFullYear();
+      
+            
+            if (age >= 1997 && age <= 2012) {
+              return true; // Gen Z
+            } else if (age >= 1981 && age <= 1996) {
+              return true; // Millenials
+            } else if (age >= 1965 && age <= 1980) {
+              return true; // Gen X
+            } else if (age >= 1900 && age <= 1964) {
+              return true; // Boomers+
+            }
+            return false;
+          });
+      
+          
+          setActiveUserCount(activeUsers.length);
+        };
+      
+        
+        calculateActiveUserCount();
+      }, []);
+      
+//    const [activeUsers, setActiveUsers] = React.useState([]); // 存储用户数据
+//    const [ageGroupStats, setAgeGroupStats] = React.useState({
+//      'Gen Z': 0,
+//      'Millenials': 0,
+//      'Gen X': 0,
+//      'Boomerst+': 0,
+//    });
+
+
+//    React.useEffect(() => {
+
+//        async function fetchActiveUsers() {
+//          try {
+//            const response = await getActiveUsers();
+//            setActiveUsers(response.data);
+    
+
+//            const stats = {
+//              'Gen Z': 0,
+//              'Millenials': 0,
+//              'Gen X': 0,
+//             'Boomerst+': 0,
+//            };
+    
+//            response.data.forEach((user) => {
+//              const ageGroup = calculateAgeGroup(user.birthYear);
+//              stats[ageGroup]++;
+//            });
+    
+//            setAgeGroupStats(stats);
+//          } catch (error) {
+//            console.error('Error fetching active users:', error);
+//         }
+//        }
+    
+//       fetchActiveUsers();
+//      }, []); 
+    
+
+//      function calculateAgeGroup(birthYear) {
+//        const currentYear = new Date().getFullYear();
+//        const age = currentYear - birthYear;
+    
+//        if (age >= 1997 && age <= 2012) {
+//          return 'Gen Z';
+//        } else if (age >= 1981 && age <= 1996) {
+//          return 'Millenials';
+//        } else if (age >= 1965 && age <= 1980) {
+//          return 'Gen X';
+//        } else if (age >= 1900 && age <= 1964) {
+//          return 'Boomers+';
+//        } else {
+//          return 'Unkown';
+//        }
+//      }
+    
     // console.log(profilePic);
     //Notification Menu
     const [anchorElNotification, setAnchorElNotification] = useState<null | HTMLElement>(null)
@@ -244,6 +340,24 @@ const NavBar = () => {
                     {themeType !== 'light' ? ' Light Theme' : 'Dark Theme'}
                 </MenuItem>
                 {/* <MenuItem onClick={handleLogout}>Logout</MenuItem> */}
+
+                <MenuItem>
+                    <ListItemIcon>
+                        <PersonAdd fontSize="small" sx={{ color: 'black' }} />
+                    </ListItemIcon>
+                    Profile
+                </MenuItem>
+                <Divider />
+                <MenuItem>
+                    Active Users: {activeUserCount}
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={handleLogout}>
+                    <ListItemIcon>
+                        <Logout fontSize="small" sx={{ color: 'black' }} />
+                    </ListItemIcon>
+                    Logout
+                </MenuItem>
             </MenuList>
         </Menu>
     )
@@ -293,6 +407,9 @@ const NavBar = () => {
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
+
+
+
         </Menu>
     )
 
@@ -484,6 +601,9 @@ const NavBar = () => {
                 searchResults={searchData}
                 loadingResults={searchLoading}
             />
+
+
+            
         </Box>
     )
 }
